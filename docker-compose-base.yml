@@ -1,0 +1,10 @@
+version: '2'
+services:
+  rails:
+    image: instedd/nginx-rails:2.3
+    environment:
+      RAILS_ENV: development
+      DATABASE_URL: mysql2://root:@db
+    volumes:
+      - './:/app'
+      - 'bundle:/usr/local/bundle'

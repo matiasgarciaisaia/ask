@@ -1,0 +1,23 @@
+version: '2'
+volumes:
+  bundle:
+  db:
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - 'db:/var/lib/mysql'
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+
+  web:
+    extends:
+      file: docker-compose-base.yml
+      service: rails
+    command: rails server -b 0.0.0.0
+    depends_on:
+      - db
+    pid: host
+    ports:
+      - 3000:3000
