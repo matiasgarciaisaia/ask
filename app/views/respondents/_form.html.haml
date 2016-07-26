@@ -1,0 +1,14 @@
+= form_for(respondent) do |f|
+  - if respondent.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(respondent.errors.count, "error")
+        prohibited this respondent from being saved:
+      %ul
+        - respondent.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :phone_number
+    = f.text_field :phone_number
+  .actions
+    = f.submit

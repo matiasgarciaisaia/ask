@@ -1,0 +1,7 @@
+%p#notice= notice
+%p
+  %strong Phone number:
+  = @respondent.phone_number
+= link_to 'Edit', edit_respondent_path(@respondent)
+|
+= link_to 'Back', respondents_path
