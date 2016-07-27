@@ -10,7 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160726193716) do
+ActiveRecord::Schema.define(version: 20160727162823) do
+
+  create_table "channels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.integer  "quiz_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quiz_id"], name: "index_channels_on_quiz_id", using: :btree
+  end
+
+  create_table "questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.text     "text",       limit: 65535
+    t.integer  "quiz_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["quiz_id"], name: "index_questions_on_quiz_id", using: :btree
+  end
+
+  create_table "quizzes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.text     "description", limit: 65535
+    t.integer  "channel_id"
+    t.integer  "survey_id"
+    t.integer  "question_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["channel_id"], name: "index_quizzes_on_channel_id", using: :btree
+    t.index ["question_id"], name: "index_quizzes_on_question_id", using: :btree
+    t.index ["survey_id"], name: "index_quizzes_on_survey_id", using: :btree
+  end
 
   create_table "respondents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "phone_number"
@@ -18,4 +48,15 @@ ActiveRecord::Schema.define(version: 20160726193716) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "surveys", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.integer  "quiz_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quiz_id"], name: "index_surveys_on_quiz_id", using: :btree
+  end
+
+  add_foreign_key "channels", "quizzes"
+  add_foreign_key "questions", "quizzes"
+  add_foreign_key "surveys", "quizzes"
 end

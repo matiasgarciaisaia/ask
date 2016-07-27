@@ -3,9 +3,9 @@ class CreateQuizzes < ActiveRecord::Migration[5.0]
     create_table :quizzes do |t|
       t.string :name
       t.text :description
-      t.references :channel, foreign_key: true
-      t.references :survey, foreign_key: true
-      t.references :question, foreign_key: true
+      t.references :channel
+      t.references :survey
+      t.references :question
 
       t.timestamps
     end
