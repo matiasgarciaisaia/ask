@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @quiz.name
+%p
+  %b Description:
+  = @quiz.description
+%p
+  %b Channel:
+  = @quiz.channel
+%p
+  %b Survey:
+  = @quiz.survey
+%p
+  %b Question:
+  = @quiz.question
+
+= link_to 'Edit', edit_quiz_path(@quiz)
+\|
+= link_to 'Back', quizzes_path
