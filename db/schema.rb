@@ -10,13 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160727182920) do
+ActiveRecord::Schema.define(version: 20160727202757) do
 
   create_table "channels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.integer  "quiz_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "user"
+    t.string   "password"
+    t.string   "url"
+    t.integer  "method"
     t.index ["quiz_id"], name: "index_channels_on_quiz_id", using: :btree
   end
 
@@ -41,6 +45,7 @@ ActiveRecord::Schema.define(version: 20160727182920) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "survey_id"
+    t.integer  "status"
     t.index ["survey_id"], name: "index_respondents_on_survey_id", using: :btree
   end
 
@@ -49,6 +54,7 @@ ActiveRecord::Schema.define(version: 20160727182920) do
     t.integer  "quiz_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "status"
     t.index ["quiz_id"], name: "index_surveys_on_quiz_id", using: :btree
   end
 

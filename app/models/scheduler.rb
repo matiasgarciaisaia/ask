@@ -5,9 +5,11 @@ class Scheduler
 
   def start survey
     respondents = survey.respondents.to_a
-    survey.quiz.methods.each do |method|
-      batch = respondents.shift survey.quiz.batch_size
-      @broker.call batch, survey, method
+    survey.status = "running"
+    survey.save!
+    survey.quiz.channels.each do | channel |
+      batch = respondents.shift survey.batch_size
+      @broker.call batch, survey, channel
     end
   end
 end
