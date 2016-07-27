@@ -1,0 +1,8 @@
+.header
+  .row
+    %nav
+      %ul
+        %li{:class => params[:controller] == "respondents" && "active"}
+          = link_to "Respondents", respondents_path
+        %li{:class => params[:controller] == "quizzes" && "active"}
+          = link_to "Questionaires", quizzes_path

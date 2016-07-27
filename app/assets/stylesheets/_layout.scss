@@ -1,0 +1,55 @@
+header {
+  @include flex(none);
+  -webkit-box-flex: 0;
+  background: $gray-dark;
+  height: 60px;
+  padding: 0 1em;
+
+  .row {
+    height: 100%;
+    @include flex-flow(row nowrap);
+    @include justify-content(center);
+    @include align-items(center);
+
+    .logo {
+      img {
+        max-width: inherit !important;
+      }
+    }
+
+    nav {
+      @include align-self(stretch);
+      @include flex-grow(2);
+      margin-left: 15px;
+
+      ul {
+        margin: 0;
+        padding: 0;
+
+        li {
+          display: inline;
+          padding: 0;
+          margin: 0;
+
+          &.active a {
+            color: $white;
+            height: 60px;
+          }
+        }
+      }
+
+      a {
+        color: $white-dark;
+        line-height: 60px;
+        font-size: 14px;
+        font-weight: 400;
+        text-transform: uppercase;
+        display: inline-block;
+        padding: 0 20px;
+      }
+    }
+  }
+
+}
+
+
