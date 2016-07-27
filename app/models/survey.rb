@@ -1,3 +1,4 @@
 class Survey < ApplicationRecord
-  has_one :quiz
+  belongs_to :quiz
+  has_many :respondents
 end
