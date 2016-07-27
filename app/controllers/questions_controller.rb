@@ -1,6 +1,8 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
 
+  before_action :load_assoc, only: [:new, :show, :edit, :update, :create]
+
   # GET /questions
   # GET /questions.json
   def index
@@ -70,5 +72,9 @@ class QuestionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
       params.require(:question).permit(:name, :text, :quiz_id)
+    end
+
+    def load_assoc
+      @quizzes = Quiz.all
     end
 end

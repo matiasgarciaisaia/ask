@@ -2,11 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "questions/new", type: :view do
   before(:each) do
-    assign(:question, Question.new(
-      :name => "MyString",
-      :text => "MyText",
-      :quiz => nil
-    ))
+    assign(:question, create(:question))
   end
 
   it "renders new question form" do

@@ -3,16 +3,8 @@ require 'rails_helper'
 RSpec.describe "questions/index", type: :view do
   before(:each) do
     assign(:questions, [
-      Question.create!(
-        :name => "Name",
-        :text => "MyText",
-        :quiz => nil
-      ),
-      Question.create!(
-        :name => "Name",
-        :text => "MyText",
-        :quiz => nil
-      )
+      create(:question),
+      create(:question)
     ])
   end
 

@@ -19,7 +19,12 @@
     = f.label :survey
     = f.text_field :survey
   .field
-    = f.label :question
-    = f.text_field :question
+    = f.label :questions
+    - if @quiz.questions.any?
+      - @quiz.questions.each do |question|
+        %p
+          = "#{question.name} : #{question.text}"
+    - else
+      This Quiz has 0 questions
   .actions
     = f.submit 'Save'

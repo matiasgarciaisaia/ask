@@ -8,3 +8,7 @@
           = link_to "Questionaires", quizzes_path
         %li{:class => params[:controller] == "channels" && "active"}
           = link_to "Channels", channels_path
+        %li{:class => params[:controller] == "questions" && "active"}
+          = link_to "Questions", questions_path
+        %li{:class => params[:controller] == "surveys" && "active"}
+          = link_to "Surveys", surveys_path

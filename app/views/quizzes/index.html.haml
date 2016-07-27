@@ -7,7 +7,7 @@
       %th Description
       %th Channel
       %th Survey
-      %th Question
+      %th Questions
       %th
       %th
       %th
@@ -17,9 +17,9 @@
       %tr
         %td= quiz.name
         %td= quiz.description
-        %td= quiz.channel
+        %td= quiz.channel.any? ? quiz.channel.name : "No channel yet"
         %td= quiz.survey
-        %td= quiz.question
+        %td= quiz.questions.map{|q| q.name}
         %td= link_to 'Show', quiz
         %td= link_to 'Edit', edit_quiz_path(quiz)
         %td= link_to 'Destroy', quiz, :method => :delete, :data => { :confirm => 'Are you sure?' }
