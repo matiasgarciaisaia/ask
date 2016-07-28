@@ -5,7 +5,7 @@ RSpec.describe "quizzes/show", type: :view do
     @quiz = assign(:quiz, Quiz.create!(
       :name => "Name",
       :description => "MyText",
-      :channel => nil,
+      :channels => nil,
       :survey => nil,
       :question => nil
     ))

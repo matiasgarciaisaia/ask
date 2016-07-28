@@ -2,13 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "quizzes/edit", type: :view do
   before(:each) do
-    @quiz = assign(:quiz, Quiz.create!(
-      :name => "MyString",
-      :description => "MyText",
-      :channel => nil,
-      :survey => nil,
-      :question => nil
-    ))
+    @quiz = assign(:quiz, create(:quiz))
   end
 
   it "renders the edit quiz form" do

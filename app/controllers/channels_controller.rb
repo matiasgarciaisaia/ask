@@ -1,6 +1,8 @@
 class ChannelsController < ApplicationController
   before_action :set_channel, only: [:show, :edit, :update, :destroy]
 
+  before_action :load_assoc, only: [:new, :show, :edit, :update, :create]
+
   # GET /channels
   # GET /channels.json
   def index
@@ -70,5 +72,9 @@ class ChannelsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def channel_params
       params.require(:channel).permit(:name, :quiz_id)
+    end
+
+    def load_assoc
+      @quizzes = Quiz.all
     end
 end

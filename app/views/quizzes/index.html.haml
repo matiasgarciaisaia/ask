@@ -5,7 +5,7 @@
     %tr
       %th Name
       %th Description
-      %th Channel
+      %th Channels
       %th Survey
       %th Questions
       %th
@@ -17,9 +17,9 @@
       %tr
         %td= quiz.name
         %td= quiz.description
-        %td= quiz.channels.any? ? quiz.channels.map(&:name).join(' | ') : "No channel yet"
+        %td= quiz.channels.any? ? quiz.channels.map(&:name).join(' | ') : "No channels yet"
         %td= quiz.survey
-        %td= quiz.questions.map(&:name).join(' | ')
+        %td= quiz.questions.any? ? quiz.questions.map(&:name).join(' | ') : "No questions yet"
         %td= link_to 'Show', quiz
         %td= link_to 'Edit', edit_quiz_path(quiz)
         %td= link_to 'Destroy', quiz, :method => :delete, :data => { :confirm => 'Are you sure?' }

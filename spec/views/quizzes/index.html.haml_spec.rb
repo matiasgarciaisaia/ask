@@ -6,14 +6,14 @@ RSpec.describe "quizzes/index", type: :view do
       Quiz.create!(
         :name => "Name",
         :description => "MyText",
-        :channel => nil,
+        :channels => nil,
         :survey => nil,
         :question => nil
       ),
       Quiz.create!(
         :name => "Name",
         :description => "MyText",
-        :channel => nil,
+        :channels => nil,
         :survey => nil,
         :question => nil
       )

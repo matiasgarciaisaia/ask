@@ -5,7 +5,7 @@ RSpec.describe "quizzes/new", type: :view do
     assign(:quiz, Quiz.new(
       :name => "MyString",
       :description => "MyText",
-      :channel => nil,
+      :channels => nil,
       :survey => nil,
       :question => nil
     ))
