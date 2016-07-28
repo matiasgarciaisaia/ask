@@ -71,7 +71,7 @@ class ChannelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def channel_params
-      params.require(:channel).permit(:name, :quiz_id)
+      params.require(:channel).permit(:name, :quiz_id, :method, :user, :url, :password, settings: [:verboice_channel_name, :verboice_project_id])
     end
 
     def load_assoc

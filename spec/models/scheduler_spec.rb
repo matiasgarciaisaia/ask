@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Scheduler, type: :model do
-  let(:broker) { Broker.new }
-  let(:scheduler) { Scheduler.new broker }
+  let(:scheduler) { Scheduler.new }
   let(:survey) { create(:survey) }
   let(:quiz) { survey.quiz }
   it "should receive a start command with a survey and tell the broker to call the first respondent" do

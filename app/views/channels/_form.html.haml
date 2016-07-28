@@ -24,5 +24,12 @@
   .field
     = f.label :method
     = f.select :method, Channel.methods.keys
+  = f.fields_for :settings, OpenStruct.new(@channel.settings) do |s|
+    .field
+      = s.label :verboice_channel_name
+      = s.text_field :verboice_channel_name
+    .field
+      = s.label :verboice_project_id
+      = s.text_field :verboice_project_id
   .actions
     = f.submit 'Save'

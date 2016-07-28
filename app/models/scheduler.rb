@@ -1,6 +1,6 @@
 class Scheduler
-  def initialize broker
-    @broker = broker
+  def initialize
+    @broker = Broker.new
   end
 
   def start survey

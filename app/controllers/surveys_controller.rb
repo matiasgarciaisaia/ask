@@ -1,5 +1,5 @@
 class SurveysController < ApplicationController
-  before_action :set_survey, only: [:show, :edit, :update, :destroy]
+  before_action :set_survey, only: [:show, :edit, :update, :destroy, :start]
 
   before_action :load_assoc, only: [:new, :show, :edit, :update, :create]
 
@@ -12,6 +12,11 @@ class SurveysController < ApplicationController
   # GET /surveys/1
   # GET /surveys/1.json
   def show
+  end
+
+  def start
+    Scheduler.new.start @survey
+    render :show
   end
 
   # GET /surveys/new

@@ -10,17 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728190430) do
+ActiveRecord::Schema.define(version: 20160728205031) do
 
   create_table "channels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.integer  "quiz_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.string   "user"
     t.string   "password"
     t.string   "url"
     t.integer  "method"
+    t.text     "settings",   limit: 65535
     t.index ["quiz_id"], name: "index_channels_on_quiz_id", using: :btree
   end
 
@@ -43,10 +44,12 @@ ActiveRecord::Schema.define(version: 20160728190430) do
 
   create_table "respondents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "phone_number"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.integer  "survey_id"
     t.integer  "status"
+    t.integer  "current_question_id"
+    t.index ["current_question_id"], name: "index_respondents_on_current_question_id", using: :btree
     t.index ["survey_id"], name: "index_respondents_on_survey_id", using: :btree
   end
 
