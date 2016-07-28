@@ -54,4 +54,9 @@ Rails.application.configure do
 
   # whitelist all ips for web_console in development mode (so it works in docker development)
   config.web_console.whitelisted_ips = '0.0.0.0/0'
+
+  if ENV['BYEBUG_REMOTE']
+    require 'byebug/core'
+    Byebug.start_server('0.0.0.0')
+  end
 end
