@@ -5,7 +5,7 @@ RSpec.describe Scheduler, type: :model do
   let(:scheduler) { Scheduler.new broker }
   let(:survey) { create(:survey) }
   let(:quiz) { survey.quiz }
-  it "should receive a start command with a sourvey and tell the broker to call the first respondent" do
+  it "should receive a start command with a survey and tell the broker to call the first respondent" do
     create(:channel, quiz: quiz, method: :sms)
     create(:channel, quiz: quiz, method: :voice)
     10.times { create(:respondent, survey: survey) }
