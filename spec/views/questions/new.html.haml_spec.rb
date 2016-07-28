@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "questions/new", type: :view do
   before(:each) do
-    assign(:question, create(:question))
+    assign(:question, build(:question))
   end
 
   it "renders new question form" do
