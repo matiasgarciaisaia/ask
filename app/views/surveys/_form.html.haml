@@ -11,6 +11,6 @@
     = f.text_field :name
   .field
     = f.label :quiz
-    = f.text_field :quiz
+    = f.select :quiz_id, @quizzes.map{|q| [q.name, q.id]}, { :prompt => "Please select"}
   .actions
     = f.submit 'Save'

@@ -1,7 +1,7 @@
 class QuizzesController < ApplicationController
   before_action :set_quiz, only: [:show, :edit, :update, :destroy]
 
-  before_action :load_assoc, only: [:show, :edit, :update]
+  before_action :load_assoc, only: [:new, :show, :edit, :update, :create]
 
   # GET /quizzes
   # GET /quizzes.json

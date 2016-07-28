@@ -10,5 +10,8 @@
   .field
     = f.label :phone_number
     = f.text_field :phone_number
+  .field
+    = f.label :survey
+    = f.select :survey_id, @surveys.map{|s| [s.name, s.id]}, { :prompt => "Please select"}
   .actions
     = f.submit
