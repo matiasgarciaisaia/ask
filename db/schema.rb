@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20160728190430) do
     t.integer  "quiz_id"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
-    t.integer  "type",                     default: 0
+    t.integer  "kind",                     default: 0
     t.index ["quiz_id"], name: "index_questions_on_quiz_id", using: :btree
   end
 
