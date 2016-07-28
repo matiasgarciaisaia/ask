@@ -10,6 +10,9 @@
     = f.label :name
     = f.text_field :name
   .field
+    = f.label :kind
+    = f.select :kind, Question.kinds.keys
+  .field
     = f.label :text
     = f.text_area :text
   .field

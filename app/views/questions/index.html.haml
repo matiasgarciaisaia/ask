@@ -4,6 +4,7 @@
   %thead
     %tr
       %th Name
+      %th Kind
       %th Text
       %th Quiz
       %th
@@ -14,6 +15,7 @@
     - @questions.each do |question|
       %tr
         %td= question.name
+        %td= question.kind.capitalize
         %td= question.text
         %td= question.quiz.name
         %td= link_to 'Show', question

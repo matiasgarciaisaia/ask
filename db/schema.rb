@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160727202757) do
+ActiveRecord::Schema.define(version: 20160728190430) do
 
   create_table "channels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -28,8 +28,9 @@ ActiveRecord::Schema.define(version: 20160727202757) do
     t.string   "name"
     t.text     "text",       limit: 65535
     t.integer  "quiz_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "type",                     default: 0
     t.index ["quiz_id"], name: "index_questions_on_quiz_id", using: :btree
   end
 
