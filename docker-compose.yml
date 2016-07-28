@@ -21,3 +21,12 @@ services:
     pid: host
     ports:
       - 3000:3000
+
+  ngrok:
+    image: wernight/ngrok
+    depends_on:
+      - web
+    ports:
+      - 4040:4040
+    environment:
+      NGROK_PORT: 'web:3000'
