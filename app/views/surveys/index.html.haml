@@ -13,7 +13,7 @@
     - @surveys.each do |survey|
       %tr
         %td= survey.name
-        %td= survey.quiz
+        %td= survey.quiz.name
         %td= link_to 'Show', survey
         %td= link_to 'Edit', edit_survey_path(survey)
         %td= link_to 'Destroy', survey, :method => :delete, :data => { :confirm => 'Are you sure?' }
