@@ -2,6 +2,9 @@
 %p
   %strong Phone number:
   = @respondent.phone_number
+%p
+  %b Quiz:
+  = @respondent.survey.name
 = link_to 'Edit', edit_respondent_path(@respondent)
 |
 = link_to 'Back', respondents_path

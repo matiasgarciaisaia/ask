@@ -18,7 +18,7 @@
         %td= quiz.name
         %td= quiz.description
         %td= quiz.channels.any? ? quiz.channels.map(&:name).join(' | ') : "No channels yet"
-        %td= quiz.survey
+        %td= quiz.survey.nil? ? "No survey yet" : quiz.survey.name
         %td= quiz.questions.any? ? quiz.questions.map(&:name).join(' | ') : "No questions yet"
         %td= link_to 'Show', quiz
         %td= link_to 'Edit', edit_quiz_path(quiz)
