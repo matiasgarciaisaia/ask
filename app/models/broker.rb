@@ -1,5 +1,5 @@
 class Broker
-  def call respondents, survey, channel
+  def call(respondents, survey, channel)
     respondents.each do |respondent|
       respondent.status = "running"
       respondent.save!
@@ -12,7 +12,7 @@ class Broker
           payload: {
             channel: channel.settings[:verboice_channel_name],
             address: respondent.phone_number,
-            callback_url: "#{base_url}/broker/callback?respondent=#{respondent.id}",
+            callback_url: callback_url_for(respondent),
             project_id: channel.settings[:verboice_project_id]
           }
         )
@@ -33,7 +33,11 @@ class Broker
     end
   end
 
-  def answer_for respondent, params
+  def callback_url_for(respondent)
+    "#{base_url}/broker/callback?respondent=#{respondent.id}"
+  end
+
+  def answer_for(respondent, params)
     quiz = respondent.survey.quiz
     respondent.current_question = if respondent.current_question.nil?
       quiz.questions.first
@@ -47,7 +51,7 @@ class Broker
       respondent.save!
       "<Response><Hangup/></Response>"
     else
-      "<Response><Gather><Say>#{respondent.current_question.text}</Say></Gather></Response>"
+      "<Response><Gather action='#{callback_url_for(respondent)}'><Say>#{respondent.current_question.text}</Say></Gather></Response>"
     end
   end
 end
