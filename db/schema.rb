@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728205031) do
+ActiveRecord::Schema.define(version: 20160802140634) do
+
+  create_table "answers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text     "text",          limit: 65535
+    t.integer  "respondent_id"
+    t.integer  "question_id"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["question_id"], name: "index_answers_on_question_id", using: :btree
+    t.index ["respondent_id"], name: "index_answers_on_respondent_id", using: :btree
+  end
 
   create_table "channels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -62,6 +72,8 @@ ActiveRecord::Schema.define(version: 20160728205031) do
     t.index ["quiz_id"], name: "index_surveys_on_quiz_id", using: :btree
   end
 
+  add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "respondents"
   add_foreign_key "channels", "quizzes"
   add_foreign_key "questions", "quizzes"
   add_foreign_key "respondents", "surveys"

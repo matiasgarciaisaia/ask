@@ -37,8 +37,9 @@ class Broker
     "#{base_url}/broker/callback?respondent=#{respondent.id}"
   end
 
-  def answer_for(respondent, params)
+  def answer_from(respondent, params)
     quiz = respondent.survey.quiz
+    respondent.answers.create!(text: params['Digits'], question: respondent.current_question) if respondent.current_question
     respondent.current_question = if respondent.current_question.nil?
       quiz.questions.first
     else
