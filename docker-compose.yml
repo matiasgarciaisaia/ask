@@ -2,8 +2,15 @@ version: '2'
 volumes:
   bundle:
   db:
+  app:
 
 services:
+  source:
+    image: instedd/syncdir
+    volumes:
+      - './:/source'
+      - 'app:/target'
+
   db:
     image: mysql:5.7
     volumes:
