@@ -17,6 +17,13 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'therubyracer', platforms: :ruby
 gem "haml-rails", "~> 0.9"
 
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'ruby-openid'
+gem 'alto_guisso', github: "instedd/alto_guisso", branch: 'master'
+gem 'alto_guisso_rails', github: "instedd/alto_guisso_rails", branch: 'master'
+ 
 gem 'rest-client'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

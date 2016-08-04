@@ -9,4 +9,6 @@
   %body
     %header
       = render "shared/header_nav"
+    %p(class="notice")= notice
+    %p(class="alert")= alert
     = yield
