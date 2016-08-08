@@ -1,5 +1,5 @@
 class Quiz < ApplicationRecord
-  has_many :channels
+  belongs_to :user
   has_one :survey
   has_many :questions
 end

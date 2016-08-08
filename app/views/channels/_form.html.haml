@@ -13,18 +13,18 @@
     = f.label :quiz
     = f.select :quiz_id, @quizzes.map{ |q| [q.name, q.id] }
   .field
-    = f.label :user
-    = f.text_field :user
-  .field
-    = f.label :password
-    = f.text_field :password
-  .field
-    = f.label :url
-    = f.text_field :url
-  .field
     = f.label :method
     = f.select :method, Channel.methods.keys
   = f.fields_for :settings, OpenStruct.new(@channel.settings) do |s|
+    .field
+      = s.label :verboice_user
+      = s.text_field :verboice_user
+    .field
+      = s.label :verboice_password
+      = s.text_field :verboice_password
+    .field
+      = s.label :verboice_url
+      = s.text_field :verboice_url
     .field
       = s.label :verboice_channel_name
       = s.text_field :verboice_channel_name

@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe BrokerController, type: :controller do
+  let(:user) { quiz.user }
   let(:quiz) { respondent.survey.quiz }
   let!(:question) { create(:question, quiz: quiz) }
   let(:respondent) { create(:respondent, status: 'running') }
 
+  before(:each) { sign_in user }
   it "answers verboice callback with the text of the first question" do
     post :callback, params: {respondent: respondent.id}
     respondent.reload

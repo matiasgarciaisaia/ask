@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160804180430) do
+ActiveRecord::Schema.define(version: 20160804190905) do
 
   create_table "answers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text     "text",          limit: 65535
@@ -18,21 +18,20 @@ ActiveRecord::Schema.define(version: 20160804180430) do
     t.integer  "question_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.integer  "survey_id"
     t.index ["question_id"], name: "index_answers_on_question_id", using: :btree
     t.index ["respondent_id"], name: "index_answers_on_respondent_id", using: :btree
+    t.index ["survey_id"], name: "index_answers_on_survey_id", using: :btree
   end
 
   create_table "channels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
-    t.integer  "quiz_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-    t.string   "user"
-    t.string   "password"
-    t.string   "url"
     t.integer  "method"
     t.text     "settings",   limit: 65535
-    t.index ["quiz_id"], name: "index_channels_on_quiz_id", using: :btree
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_channels_on_user_id", using: :btree
   end
 
   create_table "questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -50,6 +49,8 @@ ActiveRecord::Schema.define(version: 20160804180430) do
     t.text     "description", limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_quizzes_on_user_id", using: :btree
   end
 
   create_table "respondents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -69,6 +70,8 @@ ActiveRecord::Schema.define(version: 20160804180430) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "status"
+    t.integer  "channel_id"
+    t.index ["channel_id"], name: "index_surveys_on_channel_id", using: :btree
     t.index ["quiz_id"], name: "index_surveys_on_quiz_id", using: :btree
   end
 
@@ -96,8 +99,11 @@ ActiveRecord::Schema.define(version: 20160804180430) do
 
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "respondents"
-  add_foreign_key "channels", "quizzes"
+  add_foreign_key "answers", "surveys"
+  add_foreign_key "channels", "users"
   add_foreign_key "questions", "quizzes"
+  add_foreign_key "quizzes", "users"
   add_foreign_key "respondents", "surveys"
+  add_foreign_key "surveys", "channels"
   add_foreign_key "surveys", "quizzes"
 end

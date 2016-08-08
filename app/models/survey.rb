@@ -1,7 +1,9 @@
 class Survey < ApplicationRecord
   belongs_to :quiz
+  belongs_to :channel
   has_many :respondents
-  enum status: [ :pending, :running, :completed ]
+  has_many :answers
+  enum status: [:pending, :running, :completed]
 
   def batch_size
     5

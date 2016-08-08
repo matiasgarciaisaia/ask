@@ -5,10 +5,10 @@ class Broker
       respondent.save!
       if channel.voice?
         request = RestClient::Request.new(
-          url: channel.url,
+          url: channel.settings[:verboice_url],
           method: :get,
-          user: channel.user,
-          password: channel.password,
+          user: channel.settings[:verboice_user],
+          password: channel.settings[:verboice_password],
           payload: {
             channel: channel.settings[:verboice_channel_name],
             address: respondent.phone_number,
@@ -39,7 +39,7 @@ class Broker
 
   def answer_from(respondent, params)
     quiz = respondent.survey.quiz
-    respondent.answers.create!(text: params['Digits'], question: respondent.current_question) if respondent.current_question
+    respondent.answers.create!(text: params['Digits'], question: respondent.current_question, survey: respondent.survey) if respondent.current_question
     respondent.current_question = if respondent.current_question.nil?
       quiz.questions.first
     else
