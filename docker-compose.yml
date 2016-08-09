@@ -2,6 +2,8 @@ version: '2'
 volumes:
   bundle:
   db:
+  backend_deps:
+  backend_build:
 
 services:
   db:
@@ -21,6 +23,21 @@ services:
     pid: host
     ports:
       - 3000:3000
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    command: mix phoenix.server
+    working_dir: /backend
+    depends_on:
+      - db
+    ports:
+      - 4000:4000
+    volumes:
+      - './backend:/backend'
+      - 'backend_deps:/backend/deps'
+      - 'backend_build:/backend/_build'
 
   ngrok:
     image: wernight/ngrok
