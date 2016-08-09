@@ -4,8 +4,8 @@
   %b Name:
   = @channel.name
 %p
-  %b Quiz:
-  = @channel.quiz.name
+  %b User:
+  = @channel.user.nil? ? "No user" : channel.user.email
 
 = link_to 'Edit', edit_channel_path(@channel)
 \|

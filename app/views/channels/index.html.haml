@@ -4,7 +4,7 @@
   %thead
     %tr
       %th Name
-      %th Quiz
+      %th User
       %th
       %th
       %th
@@ -13,7 +13,7 @@
     - @channels.each do |channel|
       %tr
         %td= channel.name
-        %td= channel.quiz.name
+        %td= channel.user.nil? ? "No user" : channel.user.email
         %td= link_to 'Show', channel
         %td= link_to 'Edit', edit_channel_path(channel)
         %td= link_to 'Destroy', channel, :method => :delete, :data => { :confirm => 'Are you sure?' }

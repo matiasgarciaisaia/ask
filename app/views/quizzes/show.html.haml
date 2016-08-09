@@ -7,14 +7,8 @@
   %b Description:
   = @quiz.description
 %p
-  %b Channels:
-  - if @quiz.channels.any?
-    - @quiz.channels.each do |channel|
-      %p
-        = "#{channel.name} : #{channel.text}"
-  - else
-    %p
-      This Quiz has 0 channels
+  %b User:
+  = @quiz.user.nil? ? "No user" : quiz.user.email
 %p
   %b Survey:
   = @quiz.survey

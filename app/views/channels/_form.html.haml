@@ -10,9 +10,6 @@
     = f.label :name
     = f.text_field :name
   .field
-    = f.label :quiz
-    = f.select :quiz_id, @quizzes.map{ |q| [q.name, q.id] }
-  .field
     = f.label :method
     = f.select :method, Channel.methods.keys
   = f.fields_for :settings, OpenStruct.new(@channel.settings) do |s|

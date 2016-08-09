@@ -5,7 +5,7 @@
     %tr
       %th Name
       %th Description
-      %th Channels
+      %th User
       %th Survey
       %th Questions
       %th
@@ -17,7 +17,7 @@
       %tr
         %td= quiz.name
         %td= quiz.description
-        %td= quiz.channels.any? ? quiz.channels.map(&:name).join(' | ') : "No channels yet"
+        %td= quiz.user.nil? ? "No user" : quiz.user.email
         %td= quiz.survey.nil? ? "No survey yet" : quiz.survey.name
         %td= quiz.questions.any? ? quiz.questions.map(&:name).join(' | ') : "No questions yet"
         %td= link_to 'Show', quiz
