@@ -72,10 +72,9 @@ class LanguagesList extends Component {
   render() {
     const { languages, defaultLanguage, readOnly, t } = this.props
 
-    const LanguageSection = ({title, children}) =>
+    const LanguageSection = ({children}) =>
       <div className='row'>
         <div className='col s12'>
-          <p className='grey-text'>{title}:</p>
           <ul className='languages-list'>{children}</ul>
         </div>
       </div>

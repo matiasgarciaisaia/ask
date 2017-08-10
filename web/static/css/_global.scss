@@ -398,6 +398,47 @@ i.survey-status { // icon for survey status on index
 // -----------------------------------------------------------------------------
 // ------- Questionnaires ------------------------------------------------------
 
+
+.full-width {
+  padding: 0 !important;
+}
+
+.questionnaire-modes {
+  padding: 0 !important;
+  nav {
+    @extend .transparent;
+    a {
+      @extend .black-text;
+    }
+  }
+  .nav-wrapper {
+    @extend .black-text;
+    .switch {
+      @include transform(scale(0.85));
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+}
+.width-auto > div {
+  width: 100% !important; //-----fix for PositionFixer calculated width
+}
+.questionnaire-fix-bar {
+  > div:nth-child(2) {
+    @extend .grey, .lighten-3;
+    border-bottom: 1px solid color('grey', 'lighten-1');
+    padding: 0 0 0 10% !important;
+  }
+}
+.break-full-width {
+  padding-left: 10%;
+  padding-right: 10%;
+  .truncate {
+    white-space: normal !important;
+  }
+}
+
+
 .questionnaire-modes {
   .modes-list {
     li {
@@ -595,6 +636,7 @@ label + .tooltipped {
 
   // ------- Questionnaires language selector ----------
 
+
   .language-selection {
     position: relative;
     .language-dropdown {
@@ -642,6 +684,7 @@ label + .tooltipped {
       padding-left: 30px;
       height: 54px;
       cursor: pointer;
+      display: inline-block;
       span {
         line-height: 54px;
       }
@@ -679,7 +722,6 @@ label + .tooltipped {
       .language-name {
         @extend .truncate;
         padding-left: 15px;
-        width: 70%;
       }
       &.active-language {
         .language-name {
@@ -1167,7 +1209,9 @@ label + .tooltipped {
 .mtop {
   margin-top: -8rem;
 }
-
+.iblock {
+  display: inline-block !important;
+}
 .v-middle {
   vertical-align: middle;
 }
