@@ -8,8 +8,8 @@ defmodule Ask.BrokerTest do
 
   @everyday_schedule %Ask.DayOfWeek{mon: true, tue: true, wed: true, thu: true, fri: true, sat: true, sun: true}
   @always_schedule %{schedule_day_of_week: @everyday_schedule,
-                     schedule_start_time: elem(Ecto.Time.cast("00:00:00"), 1),
-                     schedule_end_time: elem(Ecto.Time.cast("23:59:59"), 1)}
+                     schedule_start_time: ~T[00:00:00],
+                     schedule_end_time: ~T[23:59:59]}
 
   test "does nothing with 'not_ready' survey" do
     survey = insert(:survey, @always_schedule)

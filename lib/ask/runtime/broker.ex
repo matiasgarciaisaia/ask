@@ -65,11 +65,14 @@ defmodule Ask.Runtime.Broker do
   defp survey_matches_schedule?(survey, now) do
     now_timex = Timex.Timezone.convert(now, survey.timezone)
     now_ecto = Ecto.Time.cast!(now_timex)
+    now_elixir = now_ecto |> Ecto.Time.to_erl |> Time.from_erl!
     now_schedule = time_to_schedule(now_timex)
+    start_time_compare = Time.compare(survey.schedule_start_time, now_elixir)
+    end_time_compare = Time.compare(survey.schedule_end_time, now_elixir)
 
     Ask.DayOfWeek.intersect?(now_schedule, survey.schedule_day_of_week) &&
-      survey.schedule_start_time <= now_ecto &&
-      survey.schedule_end_time >= now_ecto
+      (start_time_compare == :lt || start_time_compare == :eq ) &&
+       (end_time_compare == :gt || end_time_compare == :eq )
   end
 
   defp mark_stalled_for_eight_hours_respondents_as_failed do

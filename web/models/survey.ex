@@ -14,8 +14,8 @@ defmodule Ask.Survey do
     field :cutoff, :integer
     field :count_partial_results, :boolean, default: false
     field :schedule_day_of_week, Ask.DayOfWeek, default: Ask.DayOfWeek.never
-    field :schedule_start_time, Ecto.Time
-    field :schedule_end_time, Ecto.Time
+    field :schedule_start_time, :time
+    field :schedule_end_time, :time
     field :timezone, :string
     field :started_at, Timex.Ecto.DateTime
     field :sms_retry_configuration, :string
@@ -90,7 +90,7 @@ defmodule Ask.Survey do
 
     cond do
       from && to && from >= to ->
-        add_error(changeset, :from, "has to be less than the To")
+        add_error(changeset, :schedule_start_time, "has to be less than :schedule_end_time")
       true ->
         changeset
     end
@@ -215,6 +215,11 @@ defmodule Ask.Survey do
     end
   end
 
+  def next_available_date_time(survey, date_time = %NaiveDateTime{}) do
+    survey |>
+    next_available_date_time(date_time |> NaiveDateTime.to_erl |> Ecto.DateTime.from_erl)
+  end
+
   def next_available_date_time(survey, date_time = %DateTime{}) do
     survey |>
     next_available_date_time(date_time |> Timex.to_erl |> Ecto.DateTime.from_erl)
@@ -285,12 +290,16 @@ defmodule Ask.Survey do
   end
 
   defp compare_date_time(%Survey{schedule_start_time: start_time, schedule_end_time: end_time}, date_time) do
-    time = Ecto.DateTime.to_time(date_time)
-    case Ecto.Time.compare(time, start_time) do
+    time = date_time
+    |> Ecto.DateTime.to_erl
+    |> NaiveDateTime.from_erl!
+    |> DateTime.from_naive!("Etc/UTC")
+
+    case Time.compare(time, start_time) do
       :lt -> :before
       :eq -> :inside
       :gt ->
-        case Ecto.Time.compare(time, end_time) do
+        case Time.compare(time, end_time) do
           :lt -> :inside
           :eq -> :inside
           :gt -> :after
@@ -299,7 +308,7 @@ defmodule Ask.Survey do
   end
 
   defp at_schedule_start_time(survey, erl_date) do
-    erl_time = survey.schedule_start_time |> Ecto.Time.to_erl
+    erl_time = survey.schedule_start_time |> Time.to_erl
     Timex.Timezone.resolve(survey.timezone, {erl_date, erl_time})
     |> Timex.Timezone.convert("UTC")
     |> Timex.to_erl

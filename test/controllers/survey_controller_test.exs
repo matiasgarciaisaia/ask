@@ -68,8 +68,8 @@ defmodule Ask.SurveyControllerTest do
         "schedule_day_of_week" => %{
           "fri" => true, "mon" => true, "sat" => true, "sun" => true, "thu" => true, "tue" => true, "wed" => true
         },
-        "schedule_start_time" => "00:00:00",
-        "schedule_end_time" => "23:59:59",
+        "schedule_start_time" => "00:00:00.000000",
+        "schedule_end_time" => "23:59:59.000000",
         "timezone" => "UTC",
         "started_at" => "",
         "ivr_retry_configuration" => nil,
@@ -108,8 +108,8 @@ defmodule Ask.SurveyControllerTest do
         "schedule_day_of_week" => %{
           "fri" => true, "mon" => true, "sat" => true, "sun" => true, "thu" => true, "tue" => true, "wed" => true
         },
-        "schedule_start_time" => "00:00:00",
-        "schedule_end_time" => "23:59:59",
+        "schedule_start_time" => "00:00:00.000000",
+        "schedule_end_time" => "23:59:59.000000",
         "timezone" => "UTC",
         "started_at" => "",
         "ivr_retry_configuration" => nil,
@@ -164,7 +164,7 @@ defmodule Ask.SurveyControllerTest do
   describe "create" do
     test "creates and renders resource when data is valid", %{conn: conn, user: user} do
       project = create_project_for_user(user)
-      conn = post conn, project_survey_path(conn, :create, project.id)
+      conn = post conn, project_survey_path(conn, :create, project.id), survey: @valid_attrs
       assert json_response(conn, 201)["data"]["id"]
       assert Repo.get_by(Survey, %{project_id: project.id})
     end
@@ -390,10 +390,8 @@ defmodule Ask.SurveyControllerTest do
       conn = put conn, project_survey_path(conn, :update, project, survey), survey: attrs
       assert json_response(conn, 200)
       created_survey = Repo.get_by(Survey, %{project_id: project.id})
-      {:ok, one_oclock} = Ecto.Time.cast("01:00:00")
-      {:ok, two_oclock} = Ecto.Time.cast("02:00:00")
-      assert created_survey.schedule_start_time == one_oclock
-      assert created_survey.schedule_end_time == two_oclock
+      assert Time.compare(created_survey.schedule_start_time, ~T[01:00:00]) == :eq
+      assert Time.compare(created_survey.schedule_end_time, ~T[02:00:00]) == :eq
     end
 
     test "rejects update with correct error when cutoff field is greater than the max value", %{conn: conn, user: user} do
