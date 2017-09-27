@@ -18,6 +18,13 @@ config :ask, Ask.Endpoint,
   pubsub: [name: Ask.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+config :ask, Ask.MobileEndpoint,
+  url: [host: "localhost", port: System.get_env("MOBILE_WEB_PORT")],
+  secret_key_base: "Tu6aeyZlhJeiTQDt7AjOIuk2tblnEnGYHyX/VpIcZi3ctSuE0T25j+BZLPiPMFWL",
+  render_errors: [view: Ask.ErrorView, accepts: ~w(html json)],
+  instrumenters: [Ask.PhoenixInstrumenter],
+  pubsub: [name: Ask.PubSub]
+
 config :ask, Nuntium,
   base_url: System.get_env("NUNTIUM_BASE_URL") || "",
   guisso: [

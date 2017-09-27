@@ -19,6 +19,13 @@ defmodule Ask do
       # worker(Ask.Worker, [arg1, arg2, arg3]),
     ]
 
+    children = if System.get_env("MOBILE_WEB_PORT") do
+      [ supervisor(Ask.MobileEndpoint, [])
+      | children ]
+    else
+      children
+    end
+
     children = if Mix.env != :test && !IEx.started? do
       [
         worker(Ask.OAuthTokenServer, []),
@@ -41,6 +48,9 @@ defmodule Ask do
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
     Ask.Endpoint.config_change(changed, removed)
+    if System.get_env("MOBILE_WEB_PORT") do
+      Ask.MobileEndpoint.config_change(changed, removed)
+    end
     :ok
   end
 end
