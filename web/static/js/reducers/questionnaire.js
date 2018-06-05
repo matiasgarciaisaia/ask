@@ -56,6 +56,7 @@ const dataReducer = (state: Questionnaire, action): Questionnaire => {
     case actions.AUTOCOMPLETE_STEP_PROMPT_IVR: return autocompleteStepIvrPrompt(state, action)
     case actions.DELETE_STEP: return deleteStep(state, action)
     case actions.DELETE_SECTION: return deleteSection(state, action)
+    case actions.CHANGE_SECTION_TITLE: return changeSectionTitle(state, action)
     case actions.ADD_CHOICE: return addChoice(state, action)
     case actions.DELETE_CHOICE: return deleteChoice(state, action)
     case actions.CHANGE_CHOICE: return changeChoice(state, action)
@@ -288,6 +289,36 @@ const deleteSection = (state, action) => {
       return state
     }
   }
+}
+
+const changeSectionTitle = (state, action) => {
+  // const section = state.steps.find(s => s.id == action.sectionId)
+  // const stepIndex = findIndex(state.steps, s => s.id === action.sectionId)
+  // if (section && section.type === 'section') {
+  //   // const sarasa = findAndUpdateRegularStep(state.steps, action.sectionId, state, section => ({
+  //   //   ...section,
+  //   //   title: action.newTitle.trim()
+  //   // }), 'steps')
+  //   let steps = state.steps
+
+  //   return {
+  //     ...state,
+  //     steps: [
+  //       ...steps.slice(0, stepIndex),
+  //       {...steps[stepIndex],
+  //         randomize: true
+  //       },
+  //       ...steps.slice(stepIndex + 1)
+  //     ]
+  //   }
+  //   // if (sarasa !== undefined && sarasa !== null) return sarasa
+  //   // return state
+  // } else return state
+
+  return findAndUpdateRegularStep(state.steps, action.sectionId, state, section => ({
+    ...section,
+    title: action.newTitle.trim()
+  }), 'steps')
 }
 
 const moveStep = (state, action) => {
@@ -798,7 +829,7 @@ export const newMultipleChoiceStep = () => {
 export const newSection = (): SectionStep => {
   return {
     id: uuidv4(),
-    title: 'Section',
+    title: '',
     randomize: false,
     type: 'section',
     steps: []
