@@ -1,12 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import Draft from './Draft'
 import { splitSmsText, joinSmsPieces } from '../../step'
-import {limitExceeded} from '../../characterCounter'
 import filter from 'lodash/filter'
 import map from 'lodash/map'
 import { translate } from 'react-i18next'
-
-const k = (...args: any) => args
 
 class SmsPrompt extends Component {
   onBlur() {
@@ -60,9 +57,6 @@ class SmsPrompt extends Component {
     let errors = []
     if (shouldDisplayReducerErrors) {
       errors.push(...reducerErrors)
-    }
-    if (limitExceeded(value)) {
-      errors.push(k('SMS is too long. Use SHIFT+ENTER to split in multiple parts'))
     }
     if (errors.length == 0) {
       errors = null
