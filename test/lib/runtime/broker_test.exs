@@ -3868,6 +3868,35 @@ defmodule Ask.BrokerTest do
     :ok = channel_status_server |> GenServer.stop
   end
 
+  test "ignore respondent replies from channels other than the current one" do
+    test_channel = TestChannel.new
+    sms_channel = insert(:channel, settings: test_channel |> TestChannel.settings, type: "sms")
+    ivr_channel = insert(:channel, settings: test_channel |> TestChannel.settings, type: "ivr")
+
+    quiz = insert(:questionnaire, steps: @dummy_steps)
+    survey = insert(:survey, %{schedule: Schedule.always(), state: "running", questionnaires: [quiz], mode: [["ivr", "sms"]]})
+    group = insert(:respondent_group, survey: survey, respondents_count: 1) |> Repo.preload(:channels)
+
+    RespondentGroupChannel.changeset(%RespondentGroupChannel{}, %{respondent_group_id: group.id, channel_id: sms_channel.id, mode: sms_channel.type}) |> Repo.insert
+    RespondentGroupChannel.changeset(%RespondentGroupChannel{}, %{respondent_group_id: group.id, channel_id: ivr_channel.id, mode: ivr_channel.type}) |> Repo.insert
+
+    respondent = insert(:respondent, survey: survey, respondent_group: group)
+
+    {:ok, _broker} = Broker.start_link
+    Broker.poll
+
+    updated_respondent = Repo.get(Respondent, respondent.id)
+
+    _call = Broker.sync_step(updated_respondent, Flow.Message.reply("1"), "ivr")
+    _sms = Broker.sync_step(updated_respondent, Flow.Message.reply("1"), "sms")
+    # assert {:reply, ReplyHelper.simple("Do you exercise", "Do you exercise? Reply 1 for YES, 2 for NO")} = reply
+
+    # Broker.handle_info(:poll, nil)
+
+    respondent_session = Repo.get(Respondent, respondent.id).session |> IO.inspect
+    assert respondent_session["current_mode"]["mode"] == "ivr"
+  end
+
   def create_running_survey_with_channel_and_respondent(steps \\ @dummy_steps, mode \\ "sms") do
     test_channel = TestChannel.new(false, mode == "sms")
 
